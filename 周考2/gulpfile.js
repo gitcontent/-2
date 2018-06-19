@@ -18,7 +18,7 @@ gulp.task('watch', function() {
     gulp.watch('src/scss/*.scss', ['sass'])
 })
 gulp.task('server', function() {
-    gulp.src('src')
+    gulp.src('lib')
         .pipe(server({
             port: 8080,
             open: true,
@@ -38,4 +38,20 @@ gulp.task('server', function() {
         }))
 });
 //工作区
-gulp.task('work', ['sass', 'watch', 'server'])
+gulp.task('work', ['sass', 'watch', 'server']);
+//打包css
+gulp.task('libcss', function() {
+    gulp.src('src/**/*.css')
+        .pipe(gulp.dest('lib'))
+});
+//打包js
+gulp.task('uglify', function() {
+    gulp.src('src/**/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('lib'))
+});
+//打包html
+gulp.task('html', function() {
+    gulp.src('src/**/*.html')
+        .pipe(gulp.dest('lib'))
+})

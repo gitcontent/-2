@@ -1,0 +1,1 @@
+$.ajax({url:"/api/getjson",success:function(l){l=JSON.parse(l),console.log(l);var s=$("#tem").html(),a=Handlebars.compile(s)(l);$("#list").html(a)}});
