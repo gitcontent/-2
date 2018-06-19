@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var server = require('gulp-webserver');
 var uglify = require('gulp-uglify'); // 压缩js
 var sass = require('gulp-sass'); // 编译sass
+var json = require('./src/data/data.json') // 引入数据
 
 var fs = require('fs')
 var path = require('path')
@@ -24,13 +25,12 @@ gulp.task('server', function() {
             livereload: true,
             middleware: function(req, res, next) {
                 var pathname = url.parse(req.url).pathname;
-                console.log(req.url)
                 if (pathname === '/favicon.ico') {
                     return false;
                 }
                 pathname = pathname === '/' ? 'index.html' : pathname;
-                if (pathname === '/api/') {
-                    res.end();
+                if (pathname === '/api/getjson') {
+                    res.end(JSON.stringify(json));
                 } else {
                     res.end(fs.readFileSync(path.join(__dirname, 'src', pathname)))
                 }
